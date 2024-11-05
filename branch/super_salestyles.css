@@ -1,0 +1,55 @@
+#main-body {
+    padding: 10px  15px;
+    width: 70%;
+    margin: auto;
+}
+.menu-header{
+    padding: 0px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    
+}
+a {
+    cursor: pointer;
+    padding: 10px 20px;
+    display: block;
+    font-size: 14px; 
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.submenu-header {
+    display: none;
+    background-color: #FFFFFF;
+    position: absolute;
+    padding: 0;
+    z-index: 2;
+}
+.submenu-header a {
+    padding: 8px 15px;
+    font-weight: normal;
+}
+.menu-header li:hover>.submenu-header{
+    display: block;
+}
+#main-content{
+    padding: 30px 0 0 0;
+    background-color: #F5F5F5;
+}
+.container-content{
+    width: 70%;
+    margin: auto;
+    padding: 0 15px;
+}
+@media (max-width: 767px) {
+    .container-content {
+        margin: 0; /* Loại bỏ margin khi màn hình nhỏ hơn 768px */
+        width: 100%;
+    }
+}
+
+

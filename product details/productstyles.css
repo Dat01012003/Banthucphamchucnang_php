@@ -1,0 +1,179 @@
+#main-body {
+    padding: 10px  15px;
+    width: 70%;
+    margin: auto;
+}
+.menu-header{
+    padding: 0px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    
+}
+a {
+    cursor: pointer;
+    padding: 10px 20px;
+    display: block;
+    font-size: 14px; 
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.submenu-header {
+    display: none;
+    background-color: #FFFFFF;
+    position: absolute;
+    padding: 0;
+    z-index: 2;
+}
+.submenu-header a {
+    padding: 8px 15px;
+    font-weight: normal;
+}
+.menu-header li:hover>.submenu-header{
+    display: block;
+}
+#product_details{
+    background-color: #F5F5F5;
+}
+.container_product{
+    width: 70%;
+    margin: auto;
+    padding: 30px; 
+} 
+.product-title{
+    padding: 0 0 10px;
+   
+}  
+.product-title h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #212e2c;
+    margin: 5px 0;
+    line-height: 1.8;
+   
+}
+.product-title a {
+    color: #212e2c;
+    text-decoration: none;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+.product-promotion {
+    padding: 10px;
+    border: 2px dashed #b00002;
+    margin-top: 25px;
+    position: relative;
+    border-radius: 5px;
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+.product-promotion__heading {
+    display: flex;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    color: #b00002;
+    background: #fff;
+    position: absolute;
+    top: -20px;
+    align-items: center;
+    margin: 0;
+}
+@media (max-width: 767px) {
+    .container_product {
+        margin: 0; /* Loại bỏ margin khi màn hình nhỏ hơn 768px */
+        width: 100%;
+    }
+}
+/* CSS cho selector-actions */
+/* Sử dụng flexbox để căn chỉnh các phần tử nằm ngang với khoảng cách đều giữa các phần tử */
+.selector-actions {
+    display: flex; /* Đặt các phần tử con nằm trên một hàng */
+    justify-content: space-between; /* Căn đều khoảng cách giữa các phần tử */
+    align-items: center; /* Căn chỉnh các phần tử con theo chiều dọc cho thẳng hàng */
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+    margin-top: 15px; /* Khoảng cách phía trên selector-actions */
+}
+
+/* CSS cho khung chọn số lượng sản phẩm */
+/* Tạo một khung viền và làm nổi bật bằng màu nền nhẹ */
+.quantity-area {
+    display: flex; /* Sắp xếp các nút và ô nhập liệu theo hàng ngang */
+    align-items: center; /* Căn chỉnh theo chiều dọc cho các phần tử ở giữa */
+    justify-content: space-between; /* Căn đều các phần tử con */
+    border: 1px solid #ced4da; /* Đặt viền màu xám nhẹ cho khung */
+    border-radius: 5px; /* Bo tròn các góc của khung */
+    overflow: hidden; /* Đảm bảo nội dung không vượt quá khung */
+    background-color: #f8f9fa; /* Đặt màu nền nhạt cho vùng chọn số lượng */
+}
+
+/* CSS cho nút bấm số lượng */
+/* Thiết kế nút với màu nền trắng và hiệu ứng hover */
+.qty-btn {
+    background-color: white; /* Màu nền trắng cho nút */
+    border: none; /* Loại bỏ viền của nút */
+    width: 40px; /* Đặt chiều rộng nút */
+    height: 40px; /* Đặt chiều cao nút */
+    cursor: pointer; /* Con trỏ chuột thay đổi khi di chuột qua nút */
+    font-size: 18px; /* Kích thước chữ của nút */
+    color: #333; /* Màu chữ của nút */
+    transition: background-color 0.3s ease; /* Hiệu ứng mượt mà khi thay đổi màu nền */
+}
+
+.qty-btn:hover {
+    background-color: #e0e0e0; /* Đổi màu nền khi di chuột qua nút */
+}
+
+/* CSS cho ô nhập số lượng sản phẩm */
+/* Tạo kiểu cho ô nhập liệu để dễ nhìn và hài hòa với thiết kế */
+.quantity-selector {
+    width: 50px; /* Đặt chiều rộng của ô nhập liệu */
+    text-align: center; /* Căn giữa văn bản bên trong ô */
+    border: none; /* Loại bỏ viền của ô nhập liệu */
+    font-size: 16px; /* Kích thước chữ của ô nhập liệu */
+    background-color: transparent; /* Nền trong suốt để đồng bộ với phần còn lại */
+}
+
+/* CSS cho nút "Thêm vào giỏ" */
+/* Đặt nút "Thêm vào giỏ" có màu xanh đậm với chữ in hoa và thiết kế nổi bật */
+.wrap-addcart {
+    flex-grow: 1; /* Đảm bảo nút có thể mở rộng hết chiều rộng có sẵn */
+    text-align: center; /* Căn giữa nội dung bên trong */
+}
+
+#add-to-cart {
+    background-color: #006d5b; /* Màu nền xanh đậm cho nút */
+    color: white; /* Màu chữ trắng nổi bật */
+    padding: 10px 20px; /* Khoảng cách bên trong nút */
+    border: none; /* Loại bỏ viền của nút */
+    border-radius: 5px; /* Bo tròn các góc nút */
+    cursor: pointer; /* Con trỏ thay đổi khi di chuột qua nút */
+    font-weight: bold; /* Chữ đậm để làm nổi bật */
+    text-transform: uppercase; /* Chữ in hoa toàn bộ */
+    transition: background-color 0.3s ease; /* Hiệu ứng mượt mà khi thay đổi màu nền */
+    width: 100%; /* Đặt chiều rộng nút chiếm toàn bộ không gian có sẵn */
+}
+
+#add-to-cart:hover {
+    background-color: #004a3e; /* Màu nền đậm hơn khi di chuột qua nút */
+}
+.description_product{
+    width: 70%;
+    margin: auto;
+    padding: 15px;
+}
+.description_container {
+    background-color: white;
+}
+.description_tile_product h2 {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
