@@ -1,12 +1,40 @@
 <?php
-                session_start();
-                $error = isset($_SESSION['error']) ? $_SESSION['error'] : ""; // Lấy thông báo lỗi nếu có
-                unset($_SESSION['error']); // Xóa thông báo lỗi sau khi đã lấy
-                ?>
-<?php
+session_start(); // Gọi session_start() một lần duy nhất ở đầu file
+
+$error = isset($_SESSION['error']) ? $_SESSION['error'] : ""; // Lấy thông báo lỗi nếu có
+unset($_SESSION['error']); // Xóa thông báo lỗi sau khi đã lấy
+
 // Định nghĩa đường dẫn gốc
 $base_url = '/banthucphamchucnang'; // Thay bằng đường dẫn đến thư mục gốc của dự án
+
+include '../Database/db.php';
+
+$cart_count = 0;
+$cart_items = [];
+$total_price = 0;
+
+if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nhập
+    $id_user = $_SESSION['id'];
+
+    // Lấy danh sách sản phẩm trong giỏ hàng của người dùng
+    $sql = "SELECT cart.quantity, sanpham.tensanpham, sanpham.img, sanpham.gia 
+            FROM cart 
+            INNER JOIN sanpham ON cart.id_product = sanpham.id
+            WHERE cart.id_user = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id_user);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $cart_count += $row['quantity']; // Tổng số lượng sản phẩm trong giỏ
+        $total_price += $row['quantity'] * $row['gia']; // Tổng giá trị của giỏ hàng
+        $cart_items[] = $row; // Thêm sản phẩm vào danh sách sản phẩm giỏ hàng
+    }
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +47,8 @@ $base_url = '/banthucphamchucnang'; // Thay bằng đường dẫn đến thư m
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../home/header.css">
+    <script src="../Js/timkiem.js"></script>
 </head>
 
 <body style="margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
@@ -72,20 +102,27 @@ $base_url = '/banthucphamchucnang'; // Thay bằng đường dẫn đến thư m
                 <div class="menu-header"
                     style="padding: 0; margin-left: auto; display: flex; justify-content: center; align-items: center;">
                     <ul style="list-style: none; display: flex; margin: 0; padding: 0; position: relative;">
-                        <li style="position: relative;">
-                            <a style="padding: 0;" onclick="toggleSearchPopup()">
+                        <li id="searchBarContainer" style="position: relative;">
+                            <a style="padding: 0; " onclick="toggleSearchPopup()">
                                 <i class="fa-solid fa-magnifying-glass"
-                                    style="width: 35px;height: 26px; font-size: 20px;"></i>
+                                    style="width: 35px; height: 26px; font-size: 20px;"></i>
                             </a>
-                            <div id="searchPopup" class="popup-content" style="display: none;">
+                            <div id="searchPopup" class="popup-content" style="min-width: 520px">
                                 <h2>Tìm kiếm</h2>
-                                <form>
+                                <form onsubmit="searchProduct(event)">
                                     <input type="text" id="search" name="search" placeholder="Tìm kiếm sản phẩm..."
                                         required>
                                     <button type="submit" class="search-btn">Tìm kiếm</button>
                                 </form>
+                                <div id="searchResults"></div>
+                                <button id="loadMoreButton" style="display: none;" onclick="displayProducts()">Xem
+                                    thêm</button>
                             </div>
                         </li>
+
+
+
+
                         <div>
                             <li style="position: relative;">
                                 <?php if (isset($_SESSION['fullname'])): ?>
@@ -147,26 +184,43 @@ $base_url = '/banthucphamchucnang'; // Thay bằng đường dẫn đến thư m
                                 <?php endif; ?>
                             </li>
                         </div>
+                        <!-- HTML hiển thị giỏ hàng -->
                         <li style="position: relative;">
                             <a style="padding: 0;" onclick="toggleCartPopup()">
                                 <i class="fa-solid fa-cart-shopping"
                                     style="width: 35px;height: 26px; font-size: 20px;"></i>
-                                <span id="cartCount"></span> <!-- Hiển thị số lượng sản phẩm -->
+                                <span id="cartCount"><?php echo $cart_count; ?></span>
                             </a>
                             <div id="cartPopup" class="popup-content" style="display: none; min-width:450px">
                                 <h2>Giỏ hàng</h2>
-                                <div id="cartItems"></div> <!-- Nơi hiển thị sản phẩm -->
+                                <div id="cartItems">
+                                    <?php if (!empty($cart_items)): ?>
+                                    <?php foreach ($cart_items as $item): ?>
+                                    <div class="cart-item">
+                                        <img src="<?php echo $item['img']; ?>" alt="<?php echo $item['tensanpham']; ?>"
+                                            width="50">
+                                        <span><?php echo $item['tensanpham']; ?></span>
+                                        <span>Số lượng: <?php echo $item['quantity']; ?></span>
+                                        <span>Giá: <?php echo number_format($item['gia'] * $item['quantity']); ?>
+                                            đ</span>
+                                    </div>
+                                    <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <p>Giỏ hàng của bạn trống.</p>
+                                    <?php endif; ?>
+                                </div>
                                 <div id="totalPriceContainer">
                                     <span class="total-label">TỔNG TIỀN:</span>
-                                    <span id="totalPrice" class="total-amount"></span>
+                                    <span id="totalPrice"
+                                        class="total-amount"><?php echo number_format($total_price); ?> đ</span>
                                 </div>
                                 <div class="cart-buttons">
                                     <button class="view-cart-btn">Xem giỏ hàng</button>
                                     <button class="checkout-btn">Thanh toán</button>
                                 </div>
                             </div>
-
                         </li>
+
 
 
                     </ul>
@@ -431,6 +485,18 @@ $base_url = '/banthucphamchucnang'; // Thay bằng đường dẫn đến thư m
     <script>
 
     </script>
+    <script>
+    function toggleCartPopup() {
+        var popup = document.getElementById("cartPopup");
+        popup.style.display = (popup.style.display === "none" || popup.style.display === "") ? "block" : "none";
+    }
+    </script>
+    <script>
+
+    </script>
+    <style>
+
+    </style>
 </body>
 
 </html>

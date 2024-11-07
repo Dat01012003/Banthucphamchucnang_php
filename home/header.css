@@ -1,0 +1,104 @@
+/* CSS cho li chứa popup tìm kiếm */
+#searchBarContainer .popup-content {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 350px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề tìm kiếm */
+#searchBarContainer .popup-content h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+/* Ô input tìm kiếm */
+#searchBarContainer .popup-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Nút tìm kiếm */
+#searchBarContainer .popup-content .search-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4285f4;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#searchBarContainer .popup-content .search-btn:hover {
+    background-color: #357ae8;
+}
+
+/* Kết quả tìm kiếm */
+#searchBarContainer #searchResults .product {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#searchBarContainer #searchResults .product h3 {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    /* Điều chỉnh độ rộng để hiển thị tối thiểu 8 ký tự */
+}
+
+
+
+#searchBarContainer #searchResults .product-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+/* Giá ở dòng dưới */
+#searchBarContainer #searchResults .product-price {
+    font-size: 14px;
+    color: #888;
+    margin: 5px 0 0 50px;
+    /* canh lề để giá ở dưới tên sản phẩm */
+}
+
+/* Nút "Xem thêm" */
+#searchBarContainer #loadMoreButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #f1f1f1;
+    font-size: 14px;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#searchBarContainer #loadMoreButton:hover {
+    background-color: #e0e0e0;
+}
