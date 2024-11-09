@@ -1,6 +1,7 @@
 <?php
 session_start();
-session_destroy();
-header("Location: ../home/home.php"); // Chuyển đến home.php
+session_unset(); // Hủy tất cả session variables
+session_destroy(); // Hủy session
+header("Location: ../home/home.php");
 exit();
 ?>

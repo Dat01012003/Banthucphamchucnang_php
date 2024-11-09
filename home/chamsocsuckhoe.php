@@ -2,8 +2,8 @@
 include '../Database/db.php'; // Kết nối cơ sở dữ liệu
 
 // Truy vấn lấy 8 sản phẩm từ bảng sanpham_chamsocsuckhoe
-$sql = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham_chamsocsuckhoe LIMIT 8";
-$result = $conn->query($sql);
+$query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham WHERE category = 'Chăm sóc sức khỏe' LIMIT 8";
+$result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +60,7 @@ $result = $conn->query($sql);
                         echo '<div class="product-block col-lg-3 col-md-3 col-sm-4 col-6" style="padding: 15px; background-color: white; transition: transform 0.3s;">
                                 <div class="a" style="border: 1px solid rgba(128, 128, 128, 0.1);">
                                     <div class="product-img">
-                                        <a href="../product details/chamsocsuckhoe_home.php?id=' . $row["id"] . '" style="text-decoration: none;">
+                                        <a href="../product details/super_sale.php?id=' . $row["id"] . '" style="text-decoration: none;">
                                             <img src="' . $row["img"] . '" alt="" style="width: 100%; height: 100%;">
                                         </a>
                                     </div>

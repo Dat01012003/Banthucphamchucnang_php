@@ -33,7 +33,7 @@
                         <div class="product-block col-md-2 col-6" style="padding: 7px;">
                             <div style="background-color: white;">
                                 <div class="product-img">
-                                    <a href="../product details/product.php?id=' . $row['id'] . '" style="padding: 0">
+                                    <a href="../product details/super_sale.php?id=' . $row['id'] . '" style="padding: 0">
                                         <img src="' . $row['img'] . '" alt="' . $row['tensanpham'] . '" style="width: 100%; height: 100%;">
                                     </a>
                                 </div>

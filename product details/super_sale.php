@@ -24,7 +24,6 @@
         ?>
     </title>
     <link rel="stylesheet" href="../home/homestyles.css">
-
     <link rel="stylesheet" href="./productstyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -109,18 +108,16 @@
                             <div class="wrap-addcart clearfix">
                                 <button type="button" id="add-to-cart"
                                     class="add-to-cartProduct button dark btn-addtocart addtocart-modal" name="add"
-                                    onclick="addToCart(<?php echo $row['id']; ?>)">
+                                    onclick="checkLoginBeforeAddToCart(<?php echo $row['id']; ?>)">
+                                    <!-- Thay addToCart bằng checkLoginBeforeAddToCart -->
                                     Thêm vào giỏ
                                 </button>
-
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
-
         <div class="description_product">
             <div class="description_container" style="padding: 15px;">
                 <div class="description_tile_product" style="padding: 0; margin: 0;">
@@ -196,83 +193,48 @@
         }
     }
     </script>
+
     <script>
-    function addToCart(productId) {
-        const quantity = parseInt(document.getElementById('quantity').value);
-        const product = {
-            id: productId,
-            img: "<?php echo $row['img']; ?>",
-            name: "<?php echo $row['tensanpham']; ?>",
-            price: <?php echo $row['gia']; ?>,
-            quantity: quantity
+    function checkLoginBeforeAddToCart(productId) {
+        let quantity = document.getElementById("quantity").value;
+
+        // Gửi yêu cầu AJAX để kiểm tra đăng nhập
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "../Database/check_login.php", true); // File PHP mới để kiểm tra đăng nhập
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.responseText === "logged_in") {
+                    // Nếu đã đăng nhập, thêm sản phẩm vào giỏ hàng
+                    addToCart(productId, quantity);
+                } else {
+                    // Nếu chưa đăng nhập, yêu cầu đăng nhập
+                    alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+                    window.location.href = "../home/home.php"; // Đường dẫn đến trang đăng nhập
+                }
+            }
         };
+        xhr.send();
+    }
 
-        // Lấy dữ liệu giỏ hàng từ localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Kiểm tra sản phẩm đã có trong giỏ hàng chưa
-        const existingProduct = cart.find(item => item.id === productId);
-        if (existingProduct) {
-            existingProduct.quantity += quantity;
-        } else {
-            cart.push(product);
-        }
-
-        // Cập nhật lại giỏ hàng vào localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        // Hiển thị giỏ hàng
-        displayCart();
+    function addToCart(productId, quantity) {
+        // Gửi yêu cầu AJAX đến add_to_cart.php
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "../Database/add_to_cart.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.responseText === "success") {
+                    alert("Đã thêm sản phẩm vào giỏ hàng!");
+                } else {
+                    alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                }
+            }
+        };
+        xhr.send("product_id=" + productId + "&quantity=" + quantity);
     }
     </script>
-    <script>
-    function displayCart() {
-        const cartItemsContainer = document.getElementById('cartItems');
-        const totalPriceContainer = document.getElementById('totalPrice');
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        cartItemsContainer.innerHTML = ''; // Xóa dữ liệu cũ
-        let total = 0;
-
-        cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            cartItemsContainer.innerHTML += `
-            <div class="cart-item">
-                <span class="remove-item" onclick="removeFromCart(${item.id})" style="cursor:pointer; color:red; margin-left: 10px; ">×</span>
-                <img src="${item.img}" alt="${item.name}" width="50">
-                <span>${item.name}</span>
-                <div class="quantity" style = "    margin: 0px 16px;
-    background-color: grey;
-    padding: 6px;">${item.quantity}</div>
-
-                <span>${itemTotal.toLocaleString()}₫</span>
-            </div>
-        `;
-        });
-
-        totalPriceContainer.innerText = `${total.toLocaleString()}₫`;
-    }
-
-
-
-    // Hiển thị giỏ hàng khi trang tải
-    window.onload = displayCart;
-
-    function removeFromCart(productId) {
-        // Lấy dữ liệu giỏ hàng từ localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Lọc ra các sản phẩm không phải là sản phẩm cần xóa
-        cart = cart.filter(item => item.id !== productId);
-
-        // Cập nhật lại giỏ hàng vào localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        // Hiển thị lại giỏ hàng
-        displayCart();
-    }
-    </script>
 
     <style>
     .cart-item img {

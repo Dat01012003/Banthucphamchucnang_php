@@ -1,38 +1,55 @@
 <?php
-session_start(); // Gọi session_start() một lần duy nhất ở đầu file
+// Kiểm tra và khởi động session nếu chưa khởi động
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$error = isset($_SESSION['error']) ? $_SESSION['error'] : ""; // Lấy thông báo lỗi nếu có
-unset($_SESSION['error']); // Xóa thông báo lỗi sau khi đã lấy
+// Xử lý lỗi đăng nhập nếu có và sau đó xóa khỏi session để tránh hiển thị lại
+$error = isset($_SESSION['error']) ? $_SESSION['error'] : "";
+unset($_SESSION['error']);
 
-// Định nghĩa đường dẫn gốc
-$base_url = '/banthucphamchucnang'; // Thay bằng đường dẫn đến thư mục gốc của dự án
+// Đường dẫn đến thư mục gốc của dự án
+$base_url = '/banthucphamchucnang';
 
-include '../Database/db.php';
+include '../Database/db.php'; // Kết nối với cơ sở dữ liệu
 
-$cart_count = 0;
+// Kiểm tra nếu người dùng đã đăng nhập
 $cart_items = [];
 $total_price = 0;
+$cart_count = 0;
 
-if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nhập
-    $id_user = $_SESSION['id'];
+if (isset($_SESSION['id'])) {
+    $user_id = $_SESSION['id'];
 
-    // Lấy danh sách sản phẩm trong giỏ hàng của người dùng
-    $sql = "SELECT cart.quantity, sanpham.tensanpham, sanpham.img, sanpham.gia 
-            FROM cart 
-            INNER JOIN sanpham ON cart.id_product = sanpham.id
+    // Truy vấn giỏ hàng từ cơ sở dữ liệu cho người dùng đã đăng nhập
+    $sql = "SELECT cart.id_cart, cart.quantity, sanpham.id, sanpham.tensanpham, sanpham.gia, sanpham.img
+            FROM cart
+            JOIN sanpham ON cart.id_product = sanpham.id
             WHERE cart.id_user = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $id_user);
+    $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Lặp qua kết quả truy vấn để tính tổng giá và đếm số lượng sản phẩm trong giỏ hàng
     while ($row = $result->fetch_assoc()) {
-        $cart_count += $row['quantity']; // Tổng số lượng sản phẩm trong giỏ
-        $total_price += $row['quantity'] * $row['gia']; // Tổng giá trị của giỏ hàng
-        $cart_items[] = $row; // Thêm sản phẩm vào danh sách sản phẩm giỏ hàng
+        $cart_items[] = $row;
+        $total_price += $row['gia'] * $row['quantity'];
     }
+
+    // Đếm số lượng sản phẩm trong giỏ hàng
+    $cart_count = count($cart_items);
+
+    $stmt->close();
 }
+
+// Đóng kết nối cơ sở dữ liệu sau khi hoàn tất
+$conn->close();
 ?>
+
+
+
+
 
 
 
@@ -63,7 +80,6 @@ if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nh�
                         Chủ</a></li>
                 <li><a href="<?php echo $base_url; ?>/branch/supper_sale.php"
                         style="text-decoration: none; color: black;">Super Sale</a></li>
-
                 <li><a>Chăm Sóc Sức Khỏe<i class="fa-solid fa-chevron-down" style="margin-left: 10px;"></i></a>
                     <ul class="submenu-header">
                         <li><a href="../branh_chamsocsuckhoe/baove-gan-than-phoi.php"
@@ -119,10 +135,6 @@ if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nh�
                                     thêm</button>
                             </div>
                         </li>
-
-
-
-
                         <div>
                             <li style="position: relative;">
                                 <?php if (isset($_SESSION['fullname'])): ?>
@@ -136,6 +148,11 @@ if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nh�
                                         data-bs-target="#updateAccountModal"
                                         style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
                                         Thông tin tài khoản
+                                    </button>
+                                    <button type="button"
+                                        style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
+                                        <a href="../admin_panel/user.php">Quản
+                                            Lý</a>
                                     </button>
                                     <?php else: ?>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -189,20 +206,25 @@ if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nh�
                             <a style="padding: 0;" onclick="toggleCartPopup()">
                                 <i class="fa-solid fa-cart-shopping"
                                     style="width: 35px;height: 26px; font-size: 20px;"></i>
-                                <span id="cartCount"><?php echo $cart_count; ?></span>
+                                <span id="cartCount"><?php echo isset($cart_count) ? $cart_count : 0; ?></span>
                             </a>
                             <div id="cartPopup" class="popup-content" style="display: none; min-width:450px">
                                 <h2>Giỏ hàng</h2>
                                 <div id="cartItems">
-                                    <?php if (!empty($cart_items)): ?>
+                                    <?php if (isset($cart_items) && !empty($cart_items)): ?>
                                     <?php foreach ($cart_items as $item): ?>
+
                                     <div class="cart-item">
+
                                         <img src="<?php echo $item['img']; ?>" alt="<?php echo $item['tensanpham']; ?>"
                                             width="50">
                                         <span><?php echo $item['tensanpham']; ?></span>
                                         <span>Số lượng: <?php echo $item['quantity']; ?></span>
                                         <span>Giá: <?php echo number_format($item['gia'] * $item['quantity']); ?>
                                             đ</span>
+                                        <button
+                                            onclick="console.log('Item ID: <?php echo $item['id']; ?>'); removeItem(<?php echo $item['id']; ?>)">X</button>
+
                                     </div>
                                     <?php endforeach; ?>
                                     <?php else: ?>
@@ -212,7 +234,8 @@ if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nh�
                                 <div id="totalPriceContainer">
                                     <span class="total-label">TỔNG TIỀN:</span>
                                     <span id="totalPrice"
-                                        class="total-amount"><?php echo number_format($total_price); ?> đ</span>
+                                        class="total-amount"><?php echo isset($total_price) ? number_format($total_price) : '0'; ?>
+                                        đ</span>
                                 </div>
                                 <div class="cart-buttons">
                                     <button class="view-cart-btn">Xem giỏ hàng</button>
@@ -220,9 +243,6 @@ if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nh�
                                 </div>
                             </div>
                         </li>
-
-
-
                     </ul>
                 </div>
                 <!-- đăng ký tài khoản -->
@@ -485,18 +505,51 @@ if (isset($_SESSION['id'])) { // Kiểm tra nếu người dùng đã đăng nh�
     <script>
 
     </script>
+    <!-- Đặt đoạn mã này trong phần `<head>` hoặc ngay trước thẻ đóng `</body>` -->
     <script>
+    function checkLoginBeforeAddToCart(productId) {
+        <?php if (!isset($_SESSION['id'])): ?>
+        // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập và hiển thị popup đăng nhập
+        window.location.href = "../home/home.php?showLogin=1";
+        <?php else: ?>
+        // Nếu đã đăng nhập, gọi hàm để thêm vào giỏ hàng
+        addToCart(productId);
+        <?php endif; ?>
+    }
+
     function toggleCartPopup() {
-        var popup = document.getElementById("cartPopup");
-        popup.style.display = (popup.style.display === "none" || popup.style.display === "") ? "block" : "none";
+        var cartPopup = document.getElementById("cartPopup");
+        cartPopup.style.display = cartPopup.style.display === "none" ? "block" : "none";
     }
     </script>
     <script>
+    function removeItem(productId) {
 
+        console.log('productId', );
+
+        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?")) {
+            const formData = new FormData();
+            formData.append('product_id', productId);
+
+            fetch('../Database/remove_cart.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === "success") {
+                        alert("Sản phẩm đã được xóa khỏi giỏ hàng.");
+                        location.reload(); // Cập nhật lại trang để hiển thị giỏ hàng mới
+                    } else {
+                        alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+    }
     </script>
-    <style>
-
-    </style>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php'; // Đường dẫn tới db.php
+include '../Database/db.php'; // Đường dẫn tới db.php
 
 $error = ""; // Khởi tạo biến lỗi
 
@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST['password']); // Bỏ khoảng trắng
 
     // Tìm người dùng với email đã nhập
-    $sql = "SELECT password, fullname, email, diachi, role FROM account WHERE email = ?"; // Thêm cột 'email', 'diachi', và 'role' vào truy vấn
+    $sql = "SELECT id, password, fullname, email, diachi, role FROM account WHERE email = ?"; // Thêm cột 'id' vào truy vấn
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -23,10 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (strlen($user['password']) > 20) { // Kiểm tra xem mật khẩu có phải đã băm không
             if (password_verify($password, $user['password'])) {
                 // Đăng nhập thành công
+                $_SESSION['id'] = $user['id']; // Lưu id của người dùng vào session
                 $_SESSION['fullname'] = $user['fullname'];
-                $_SESSION['email'] = $user['email']; // Lưu email vào session
-                $_SESSION['diachi'] = $user['diachi']; // Lưu địa chỉ vào session
-                $_SESSION['role'] = $user['role']; // Lưu vai trò vào session
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['diachi'] = $user['diachi'];
+                $_SESSION['role'] = $user['role'];
                 header("Location: ../home/home.php"); // Chuyển đến home.php
                 exit();
             } else {
@@ -37,15 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // Nếu mật khẩu chưa được băm, so sánh trực tiếp
-            if ($password === $user['password']) {
+            if (password_verify($password, $user['password'])) {
                 // Đăng nhập thành công
+                $_SESSION['id'] = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
-                $_SESSION['email'] = $user['email']; // Lưu email vào session
-                $_SESSION['diachi'] = $user['diachi']; // Lưu địa chỉ vào session
-                $_SESSION['role'] = $user['role']; // Lưu vai trò vào session
-                header("Location: ../home/home.php"); // Chuyển đến home.php
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['diachi'] = $user['diachi'];
+                $_SESSION['role'] = $user['role'];
+                header("Location: ../home/home.php");
                 exit();
-            } else {
+            }
+             else {
                 // Sai mật khẩu
                 $_SESSION['error'] = "Sai mật khẩu."; // Lưu thông báo lỗi vào session
                 header("Location: ../home/home.php?showLogin=1"); // Thêm biến truy vấn để hiển thị popup
