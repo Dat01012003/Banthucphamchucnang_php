@@ -5,7 +5,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 $brands = $data['brands'];
 $prices = $data['prices'];
 
-$query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham WHERE category = 'Super sale'";
+$query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham WHERE category = 'Chăm sóc sức khỏe'";
 
 // Xử lý danh sách thương hiệu
 if (!empty($brands)) {

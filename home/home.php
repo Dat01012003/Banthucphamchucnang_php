@@ -85,8 +85,46 @@
                 <div class="row">
                     <!-- Cột chiếm 9 phần -->
                     <div class="col-md-9 col-sm-12 col-xs-12">
-                        <img src="../img/1920x1055.webp" alt="Image 1"
-                            style="width: 100%; height: auto; object-fit: cover;">
+                        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                                    aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner" style="max-height: 536px;">
+                                <div class="carousel-item active" data-bs-interval="3000">
+                                    <img src="../img/pt1.webp" class="d-block w-100" alt="..."
+                                        style="width: 100%; height: auto;">
+                                    <div class="carousel-caption d-none d-md-block">
+                                    </div>
+                                </div>
+                                <div class="carousel-item" data-bs-interval="3000">
+                                    <img src="../img/pt.webp" class="d-block w-100" alt="..." class="d-block w-100"
+                                        alt="..." style="width: 100%; height: auto;">
+                                    <div class="carousel-caption d-none d-md-block">
+                                    </div>
+                                </div>
+                                <div class="carousel-item" data-bs-interval="3000">
+                                    <img src="../img/pt3.webp" class="d-block w-100" alt="..."
+                                        style="width: 100%; height: auto;">
+                                    <div class="carousel-caption d-none d-md-block">
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
                     <!-- Cột chiếm 3 phần -->
                     <div class="row col-md-3">

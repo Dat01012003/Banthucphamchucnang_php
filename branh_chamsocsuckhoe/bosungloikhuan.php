@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Sale</title>
+    <title>Bổ Sung Lợi Khuẩn</title>
     <link rel="stylesheet" href="./super_salestyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -19,7 +19,7 @@
             include '../home/header.php';
             include '../database/db.php';
 
-            // Truy vấn dữ liệu từ bảng 'sanpham' với category là 'Super sale'
+            // Truy vấn dữ liệu từ bảng 'sanpham' với category là 'Bổ Sung Lợi Khuẩn'
             $query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham 
             WHERE category = 'Chăm sóc sức khỏe' AND category_subtype = 'Bổ sung lợi khuẩn phụ nữ'";
   $result = mysqli_query($conn, $query);
@@ -32,177 +32,78 @@
                 <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="bg-white" style="padding: 15px;">
                         <div>
-                            <div class="layered_subtitle dropdown-filter"><span>Thương hiệu</span>
-                                <div class="layered-content bl-filter filter-brand">
-                                    <ul class="check-box-list">
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Natrol</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Swanson</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Ivory Caps</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Khác</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Healthy Care</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>DHC</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Puritan's Pride</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Healthy Origins</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Jarrow Formulas</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Nature Made</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Swisse</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Pure Alaska Omega</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Angdom</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Doctor Gak</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>NoTs</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Goodhealth</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Spirulina System</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Nature's Truth</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Nature's Way</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Truenature</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Cell Fusion C</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Clinicians</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Blis Probiotics</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Go Healthy</label>
-                                        </li>
-
-                                        <li>
-                                            <input type="checkbox">
-                                            <label>Orihiro</label>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="group-filter" aria-expanded="true">
-                            <div class="layered_subtitle dropdown-filter"><span>Giá sản phẩm</span>
-                            </div>
-                            <div class="layered-content bl-filter filter-price">
+                            <div class="layered_subtitle dropdown-filter"><span>Thương hiệu</span></div>
+                            <div class="layered-content bl-filter filter-brand">
                                 <ul class="check-box-list">
-                                    <li>
-                                        <input type="checkbox">
-                                        <label>
-                                            <span>Dưới</span> 500,000₫
-                                        </label>
+                                    <li><input type="checkbox" class="brand-filter" value="Natrol"><label>Natrol</label>
                                     </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        <label>
-                                            500,000₫ - 1,000,000₫
-                                        </label>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Swanson"><label>Swanson</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Ivory Caps"><label>Ivory
+                                            Caps</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Khác"><label>Khác</label>
                                     </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        <label>
-                                            1,000,000₫ - 1,500,000₫
-                                        </label>
+                                    <li><input type="checkbox" class="brand-filter" value="Healthy Care"><label>Healthy
+                                            Care</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="DHC"><label>DHC</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Puritan's Pride"><label>Puritan's Pride</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Healthy Origins"><label>Healthy Origins</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Jarrow Formulas"><label>Jarrow Formulas</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Nature Made"><label>Nature
+                                            Made</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Swisse"><label>Swisse</label>
                                     </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        <label>
-                                            2,000,000₫ - 5,000,000₫
-                                        </label>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Pure Alaska Omega"><label>Pure Alaska Omega</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Angdom"><label>Angdom</label>
                                     </li>
-                                    <li>
-                                        <input type="checkbox">
-                                        <label for="p5">
-                                            <span>Trên</span> 5,000,000₫
-                                        </label>
+                                    <li><input type="checkbox" class="brand-filter" value="Doctor Gak"><label>Doctor
+                                            Gak</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="NoTs"><label>NoTs</label>
                                     </li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Goodhealth"><label>Goodhealth</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Spirulina System"><label>Spirulina System</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Nature's Truth"><label>Nature's Truth</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Nature's Way"><label>Nature's
+                                            Way</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Truenature"><label>Truenature</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Cell Fusion C"><label>Cell
+                                            Fusion C</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Clinicians"><label>Clinicians</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Blis Probiotics"><label>Blis
+                                            Probiotics</label></li>
+                                    <li><input type="checkbox" class="brand-filter" value="Go Healthy"><label>Go
+                                            Healthy</label></li>
+                                    <li><input type="checkbox" class="brand-filter"
+                                            value="Orihiro"><label>Orihiro</label></li>
                                 </ul>
                             </div>
                         </div>
-
+                        <div class="group-filter" aria-expanded="true">
+                            <div class="layered_subtitle dropdown-filter"><span>Giá sản phẩm</span></div>
+                            <div class="layered-content bl-filter filter-price">
+                                <ul class="check-box-list">
+                                    <li><input type="checkbox" class="price-filter"
+                                            value="0-500000"><label><span>Dưới</span> 500,000₫</label></li>
+                                    <li><input type="checkbox" class="price-filter"
+                                            value="500000-1000000"><label>500,000₫ - 1,000,000₫</label></li>
+                                    <li><input type="checkbox" class="price-filter"
+                                            value="1000000-1500000"><label>1,000,000₫ - 1,500,000₫</label></li>
+                                    <li><input type="checkbox" class="price-filter"
+                                            value="2000000-5000000"><label>2,000,000₫ - 5,000,000₫</label></li>
+                                    <li><input type="checkbox" class="price-filter"
+                                            value="5000000-"><label><span>Trên</span> 5,000,000₫</label></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <style>
@@ -229,7 +130,7 @@
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <div style="padding: 0 12px;">
                         <div class="bg-white">
-                            <h2 style="font-size: 20px; margin: 0; padding: 10px;">Super Sale</h2>
+                            <h2 style="font-size: 20px; margin: 0; padding: 10px;">Bổ Sung Lợi Khuẩn</h2>
                         </div>
                     </div>
                     <div class="container" style="background-color: #f5f5f5;">
@@ -274,6 +175,44 @@
              ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const brandCheckboxes = document.querySelectorAll('.brand-filter');
+        const priceCheckboxes = document.querySelectorAll('.price-filter');
+
+        brandCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filterProducts);
+        });
+
+        priceCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filterProducts);
+        });
+
+        function filterProducts() {
+            const selectedBrands = Array.from(brandCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            const selectedPrices = Array.from(priceCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            // Tạo một đối tượng để gửi yêu cầu AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '../filter_products/filter_products_loikhuan.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.querySelector('.container .row').innerHTML = xhr.responseText;
+                }
+            };
+
+            xhr.send(JSON.stringify({
+                brands: selectedBrands,
+                prices: selectedPrices
+            }));
+        }
+    });
     </script>
 </body>
 

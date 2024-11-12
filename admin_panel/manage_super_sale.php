@@ -213,6 +213,7 @@ $result = $conn->query($sql);
             });
     });
     </script>
+    <style></style>
 </body>
 
 </html>

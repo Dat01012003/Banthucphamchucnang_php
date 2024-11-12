@@ -5,8 +5,8 @@ $data = json_decode(file_get_contents('php://input'), true);
 $brands = $data['brands'];
 $prices = $data['prices'];
 
-$query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham WHERE category = 'Super sale'";
-
+$query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham 
+            WHERE category = 'Chăm sóc sức khỏe' AND category_subtype = 'Bổ sung canxi,xương khớp'";
 // Xử lý danh sách thương hiệu
 if (!empty($brands)) {
     // Escape thương hiệu để tránh SQL Injection

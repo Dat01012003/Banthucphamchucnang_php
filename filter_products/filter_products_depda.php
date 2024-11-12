@@ -5,8 +5,9 @@ $data = json_decode(file_get_contents('php://input'), true);
 $brands = $data['brands'];
 $prices = $data['prices'];
 
-$query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham WHERE category = 'Super sale'";
-
+$query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham 
+WHERE category = 'Làm đẹp' AND category_subtype = 'Đẹp da dài tóc'";
+$result = mysqli_query($conn, $query);
 // Xử lý danh sách thương hiệu
 if (!empty($brands)) {
     // Escape thương hiệu để tránh SQL Injection
