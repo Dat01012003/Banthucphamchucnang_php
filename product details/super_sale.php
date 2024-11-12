@@ -131,9 +131,10 @@
                     <div>
                         <p><span style="font-size:15px"><?php echo $row['description']; ?></span></p>
                         <p><span style="font-size:15px">_______________________________________________</span></p>
-                        <p style="text-align: center"><img
-                                src="//file.hstatic.net/200000426279/file/00-mcg-ho-tro-moc-toc-giam-gay-rung-toc-va-chac-khoe-mong-100-vien-lo4_f0eb9d4335764b0595204c326058d128_grande.png">
+                        <p style="text-align: center">
+                            <img src="<?php echo $row['img1']; ?>" width="30%" height="30%">
                         </p>
+
                         <h2><strong><span style="font-size:18px">1. Thông tin sản phẩm:</span></strong></h2>
                         <p>
                             <span style="font-size:15px">
@@ -147,9 +148,10 @@
                                 <?php echo nl2br($row['uses']); ?>
                             </span>
                         </p>
-                        <p style="text-align: center"><img
-                                src="//file.hstatic.net/200000426279/file/00-mcg-ho-tro-moc-toc-giam-gay-rung-toc-va-chac-khoe-mong-100-vien-lo2_4967295e8ada4610954ae34e3e353c1f_grande.png">
+                        <p style="text-align: center">
+                            <img src="<?php echo $row['img2']; ?>" width="30%" height="30%">
                         </p>
+
                         <h2><strong><span style="font-size:18px">3. Liều dùng và cách dùng:</span></strong></h2>
                         <p>
                             <span style="font-size:15px">
@@ -173,6 +175,10 @@
             </div>
         </div>
     </div>
+    <?php
+           // Bao gồm file header.php
+             include '../home/footer.php';
+             ?>
     <!-- hàm đếm số lượng -->
     <script>
     function plusQuantity() {

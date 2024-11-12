@@ -30,11 +30,20 @@ session_start(); // Bắt đầu session
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 mx-auto">
-                            <form action="create_product.php" method="POST" enctype="multipart/form-data">
+                            <form action="../product editing/create_product.php" method="POST"
+                                enctype="multipart/form-data">
                                 <!-- Hình ảnh -->
                                 <div class="mb-3">
-                                    <label for="img" class="form-label">Hình ảnh</label>
+                                    <label for="img" class="form-label">Hình ảnh chính</label>
                                     <input type="file" class="form-control" id="img" name="img" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="img1" class="form-label">Hình ảnh 1</label>
+                                    <input type="file" class="form-control" id="img1" name="img1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="img2" class="form-label">Hình ảnh 2</label>
+                                    <input type="file" class="form-control" id="img2" name="img2" required>
                                 </div>
 
                                 <!-- Tên hàng -->
@@ -163,9 +172,9 @@ session_start(); // Bắt đầu session
                     text: 'Hỗ trợ cân nặng'
                 },
                 {
-                    value: 'Hỗ trợ chống lão hóa',
-                    text: 'Hỗ trợ chống lão hóa'
-                }
+                    value: 'Bổ não-tăng trí nhớ',
+                    text: 'Bổ não-tăng trí nhớ'
+                } // sửa dòng này
             ];
         } else if (category === 'Làm đẹp') {
             subtypes = [{

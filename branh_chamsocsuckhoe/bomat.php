@@ -20,12 +20,12 @@
             include '../database/db.php';
 
             // Truy vấn dữ liệu từ bảng 'sanpham' với category là 'Super sale'
-            $query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham_chamsocsuckhoe 
+            $query = "SELECT id, img, tenhang, tensanpham, gia FROM sanpham 
           WHERE category = 'Chăm sóc sức khỏe' AND category_subtype = 'Bổ mắt'";
 $result = mysqli_query($conn, $query);
         ?>
     </div>
-    <div id="main-content">
+    <div id="main-content" style="background-color: #f5f5f5;">
         <div class="container-content">
             <div class="row">
                 <div class="col-md-3 col-sm-12 col-xs-12">
@@ -260,13 +260,16 @@ $result = mysqli_query($conn, $query);
                                     echo '<p>Không có sản phẩm nào để hiển thị.</p>';
                                 }
                             ?>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <?php
+           // Bao gồm file header.php
+             include '../home/footer.php';
+             ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>

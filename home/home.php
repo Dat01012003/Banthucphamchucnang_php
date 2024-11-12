@@ -19,8 +19,68 @@
              ?>
 
     </div>
+
+
+
+    <script>
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        const content = document.getElementById('content');
+
+        if (menu.style.left === '0px') {
+            menu.style.left = '-250px';
+            content.style.marginLeft = '0';
+        } else {
+            menu.style.left = '0px';
+            content.style.marginLeft = '250px';
+        }
+    }
+
+    function toggleSubmenu(event, submenuId) {
+        event.preventDefault(); // Ngăn chặn liên kết hoạt động
+        const submenu = document.getElementById(submenuId);
+        if (submenu.style.display === 'block') {
+            submenu.style.display = 'none'; // Ẩn submenu nếu đang mở
+        } else {
+            submenu.style.display = 'block'; // Hiển thị submenu nếu đang ẩn
+        }
+    }
+    </script>
+
     <div style="background-color: #F5F5F5;">
-        <div id="home-slider">
+        <div class="menu-container">
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+            <div class="menu" id="menu">
+                <ul>
+                    <li>
+                        <a href="#" onclick="toggleSubmenu(event, 'homeSubmenu')">Trang chủ</a>
+                        <ul class="submenu" id="homeSubmenu">
+                            <li><a href="#">Giới thiệu</a></li>
+                            <li><a href="#">Liên hệ</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" onclick="toggleSubmenu(event, 'infoSubmenu')">Thông tin chung</a>
+                        <ul class="submenu" id="infoSubmenu">
+                            <li><a href="#">Thông báo</a></li>
+                            <li><a href="#">Lịch học</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" onclick="toggleSubmenu(event, 'studySubmenu')">Học tập</a>
+                        <ul class="submenu" id="studySubmenu">
+                            <li><a href="#">Điểm danh</a></li>
+                            <li><a href="#">Kết quả học tập</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Đăng ký học phần</a></li>
+                    <li><a href="#">Học phí</a></li>
+                    <li><a href="#">Khác</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="home-slider" style="    transform: translateY(-65px);
+    transition: transform 0.3s ease;     padding: 0">
             <div class="container" style="margin: 0; max-width: 1337px;">
                 <div class="row">
                     <!-- Cột chiếm 9 phần -->
@@ -69,7 +129,96 @@
            // Bao gồm file header.php
              include 'chamsocsuckhoe.php';
              ?>
+    <div id="footer">
+        <h2>THƯƠNG HIỆU NỔI BẬT</h2>
+        <div class="brand-list">
+            <div class="brand-item">
+                <img src="https://file.hstatic.net/200000426279/file/swanson_bf604be28ad040c8b88c09a13e773c4a.png"
+                    alt="Swanson">
+                <span>SWANSON</span>
+            </div>
+            <div class="brand-item">
+                <img src="https://file.hstatic.net/200000426279/file/natrol_76ccd035126c4c039b2bb1a0ab9e1199.png"
+                    alt="Natrol">
+                <span>NATROL</span>
+            </div>
+            <div class="brand-item">
+                <img src="https://file.hstatic.net/200000426279/file/puritan_e9bbe4e33a5a478a8b12a4df7fd6eb09.png"
+                    alt="Puritan's Pride">
+                <span>PURITAN'S PRIDE</span>
+            </div>
+            <div class="brand-item">
+                <img src="https://file.hstatic.net/200000426279/file/dhc_27803b3d1a0740838bef16596de629d3.png"
+                    alt="DHC">
+                <span>DHC</span>
+            </div>
+            <div class="brand-item">
+                <img src="https://file.hstatic.net/200000426279/file/jarrow-formulas_af1af25a4be14c058fa2942430d49ac1.png"
+                    alt="Jarrow Formulas">
+                <span>JARROW FORMULAS</span>
+            </div>
+        </div>
+    </div>
+    <style>
+    /* Container chính */
+    #footer {
+        padding: 20px 9px;
+        width: 70%;
+        margin: 40px auto;
+        /* Tạo khoảng cách trên và căn giữa */
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
+    /* Tiêu đề */
+    #footer h2 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    #footer h2::before {
+        content: "⚜";
+        /* Thêm biểu tượng */
+        font-size: 18px;
+        margin-right: 8px;
+        color: #007bff;
+    }
+
+    /* Danh sách thương hiệu */
+    .brand-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .brand-item {
+        flex: 1;
+        text-align: center;
+        margin: 0 10px;
+    }
+
+    .brand-item img {
+        max-width: 100%;
+        height: auto;
+        max-height: 80px;
+        margin-bottom: 8px;
+    }
+
+    .brand-item span {
+        display: block;
+        font-size: 14px;
+        color: #555;
+    }
+    </style>
+    <?php
+           // Bao gồm file header.php
+             include 'footer.php';
+             ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
@@ -145,6 +294,105 @@
         color: red;
         font-size: 20px;
         cursor: pointer;
+    }
+    </style>
+    <!-- menu left -->
+    <style>
+    /* Menu container */
+    /* Đặt font chữ và reset mặc định */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+    /* Phần menu */
+    /* .menu-container {
+        display: flex;
+        flex-direction: column;
+    } */
+
+    .menu-icon {
+        width: 5%;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 15px;
+        background-color: green;
+        color: #fff;
+        text-align: center;
+        border-bottom: 1px solid #0056b3;
+    }
+
+    .menu {
+        width: 250px;
+        background-color: #fff;
+        height: 100vh;
+        overflow: auto;
+        position: fixed;
+        left: -250px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s ease;
+    }
+
+    .menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu ul li {
+        padding: 10px 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .menu ul li a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        font-size: 16px;
+        transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .menu ul li a:hover {
+        background-color: green;
+        color: #fff;
+        border-radius: 5px;
+        padding-left: 20px;
+    }
+
+    .content {
+        flex: 1;
+        padding: 20px;
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+    }
+
+    /* Style cho submenu */
+    .submenu {
+        display: none;
+        /* Ban đầu ẩn submenu */
+        list-style: none;
+        padding-left: 20px;
+        /* Thụt vào so với menu chính */
+        margin: 0;
+    }
+
+    .submenu li {
+        padding: 8px 0;
+    }
+
+    .submenu li a {
+        font-size: 14px;
+        color: #555;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .submenu li a:hover {
+        color: #007bff;
+        /* Thay đổi màu khi hover submenu */
     }
     </style>
 </body>

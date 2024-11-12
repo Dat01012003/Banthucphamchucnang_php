@@ -146,24 +146,25 @@ $conn->close();
                                     <?php if ($_SESSION['role'] === 'admin'): ?>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#updateAccountModal"
-                                        style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
+                                        style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;font-weight: bold;">
                                         Thông tin tài khoản
                                     </button>
                                     <button type="button"
-                                        style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
-                                        <a href="../admin_panel/user.php">Quản
+                                        style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;padding:0">
+                                        <a href="../admin_panel/user.php"
+                                            style="text-decoration: none;color: black;padding: 12px;">Quản
                                             Lý</a>
                                     </button>
                                     <?php else: ?>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#updateAccountModal"
-                                        style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
+                                        style="display: block; width: 100%;font-weight: bold; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
                                         Thông tin tài khoản
                                     </button>
 
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#feedbackModal"
-                                        style="display: block; width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
+                                        style="display: block; font-weight: bold;width: 100%; padding: 12px; text-align: left; color: #333; background: none; border: none; font-size: 16px; cursor: pointer; outline: none; box-shadow: none;">
                                         Phản hồi
                                     </button>
                                     <?php endif; ?>
@@ -238,7 +239,8 @@ $conn->close();
                                         đ</span>
                                 </div>
                                 <div class="cart-buttons">
-                                    <button class="view-cart-btn">Xem giỏ hàng</button>
+                                    <a href="../cart/shopping cart details.php"><button class="view-cart-btn">Xem giỏ
+                                            hàng</button></a>
                                     <button class="checkout-btn">Thanh toán</button>
                                 </div>
                             </div>
