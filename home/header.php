@@ -196,6 +196,7 @@ $conn->close();
                                         <button type="button" class="btn btn-primary" id="openModalBtn">
                                             Đăng ký tài khoản
                                         </button>
+
                                         <button type="submit" class="login-btn">Đăng nhập</button>
                                     </form>
                                 </div>
@@ -241,26 +242,108 @@ $conn->close();
                                 <div class="cart-buttons">
                                     <a href="../cart/shopping cart details.php"><button class="view-cart-btn">Xem giỏ
                                             hàng</button></a>
-                                    <button class="checkout-btn">Thanh toán</button>
+                                    <a href="../cart/cart checkout.php"><button class="checkout-btn">Thanh
+                                            toán</button></a>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <!-- đăng ký tài khoản -->
-                <div id="modalContainer"></div>
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <!-- Modal -->
+                <?php
+
+// Lấy lỗi và dữ liệu cũ từ session
+$errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
+$old_data = isset($_SESSION['old_data']) ? $_SESSION['old_data'] : [];
+
+// Xóa lỗi khỏi session sau khi lấy ra
+unset($_SESSION['errors']);
+unset($_SESSION['old_data']);
+?>
+
+                <!-- Modal Đăng Ký -->
+                <div class="modal fade <?= !empty($errors) ? 'show' : '' ?>" id="exampleModal" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="<?= empty($errors) ? 'true' : 'false' ?>"
+                    style="<?= !empty($errors) ? 'display: block;' : '' ?>">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Đăng Ký Tài Khoản</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form action="../Database/register.php" method="POST">
+                                <div class="modal-body">
+                                    <!-- Hiển thị lỗi -->
+                                    <?php if (!empty($errors)): ?>
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            <?php foreach ($errors as $error): ?>
+                                            <li><?= htmlspecialchars($error) ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                    <?php endif; ?>
+
+                                    <!-- Form nhập liệu -->
+                                    <div class="mb-3">
+                                        <label for="fullname" class="form-label">Họ và tên</label>
+                                        <input type="text" class="form-control" id="fullname" name="fullname"
+                                            value="<?= isset($old_data['fullname']) ? htmlspecialchars($old_data['fullname']) : '' ?>"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            value="<?= isset($old_data['email']) ? htmlspecialchars($old_data['email']) : '' ?>"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Số điện thoại</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                            value="<?= isset($old_data['phone']) ? htmlspecialchars($old_data['phone']) : '' ?>"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="diachi" class="form-label">Địa chỉ</label>
+                                        <input type="text" class="form-control" id="diachi" name="diachi"
+                                            value="<?= isset($old_data['diachi']) ? htmlspecialchars($old_data['diachi']) : '' ?>"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Mật khẩu</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
+                                        <input type="password" class="form-control" id="confirm_password"
+                                            name="confirm_password" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- JavaScript tự động hiển thị modal nếu có lỗi -->
                 <script>
-                $(document).ready(function() {
-                    $('#openModalBtn').click(function() {
-                        // Sử dụng AJAX để tải nội dung modal từ file dangkitaikhoan.php
-                        $('#modalContainer').load('dangkitaikhoan.php', function() {
-                            // Khi modal đã được tải xong, hiển thị modal
-                            $('#exampleModal').modal('show');
-                        });
-                    });
+                document.addEventListener('DOMContentLoaded', function() {
+                    <?php if (!empty($errors)): ?>
+                    var exampleModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                    exampleModal.show();
+                    <?php endif; ?>
                 });
                 </script>
+
+
                 <!-- thông tin tài khoản -->
                 <div class="modal fade" id="updateAccountModal" tabindex="-1" aria-labelledby="updateAccountModalLabel"
                     aria-hidden="true">
@@ -551,6 +634,12 @@ $conn->close();
                 });
         }
     }
+    </script>
+    <script>
+    document.getElementById('openModalBtn').addEventListener('click', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        myModal.show();
+    });
     </script>
 </body>
 

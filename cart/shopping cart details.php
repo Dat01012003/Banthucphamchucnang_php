@@ -37,7 +37,6 @@ $totalPrice = 0;
 <body>
 
     <div class="container">
-
         <div class="breadcrumbs">
             <a href="../home/home.php">Trang chủ</a> / <span>Giỏ hàng</span>
         </div>
@@ -72,11 +71,11 @@ $totalPrice = 0;
                             <span class="total-price">
                                 <?php 
                                 $productTotal = $row['gia'] * $row['quantity']; 
-                                $totalPrice += $productTotal; 
                                 echo number_format($productTotal, 0, ',', '.'); 
                                 ?>₫
                             </span>
                         </div>
+                        <!-- Checkbox để chọn sản phẩm -->
                         <input type="checkbox" name="selected_products[]" value="<?php echo $row['id_product']; ?>"
                             class="product-checkbox">
                     </div>
@@ -95,7 +94,7 @@ $totalPrice = 0;
                         </p>
                         <p class="order-shipping">Phí vận chuyển sẽ được tính ở trang thanh toán.</p>
                         <button class="checkout-btn">THANH TOÁN</button>
-                        <a href="#" class="continue-shopping">← Tiếp tục mua hàng</a>
+                        <a href="../home/home.php" class="continue-shopping">← Tiếp tục mua hàng</a>
                     </div>
                 </div>
             </div>
@@ -103,47 +102,39 @@ $totalPrice = 0;
     </div>
     <script src="../Js/shopping cart details.js"></script>
     <script>
-    // Lắng nghe sự kiện thay đổi số lượng sản phẩm và checkbox
-    document.querySelectorAll('.quantity-input').forEach(function(input) {
-        input.addEventListener('input', function() {
-            // Gửi form tự động khi thay đổi số lượng
-            this.closest('form').submit();
-        });
-    });
-
-    // Lắng nghe sự kiện checkbox thay đổi
+    // Lắng nghe sự kiện trên tất cả các checkbox
     const checkboxes = document.querySelectorAll('.product-checkbox');
-    checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            // Gửi form tự động khi thay đổi checkbox
-            this.closest('form').submit();
-        });
-    });
+    const totalPriceDisplay = document.querySelector('.total-price-display');
 
-    // Cập nhật tổng tiền chỉ cho những sản phẩm đã chọn
-    function updateTotal() {
-        let total = 0;
-        checkboxes.forEach(function(checkbox) {
+    function updateTotalPrice() {
+        let totalPrice = 0;
+        checkboxes.forEach(checkbox => {
             if (checkbox.checked) {
-                const productId = checkbox.value;
-                const productPrice = parseFloat(document.querySelector(
-                    `.product-item[data-product-id="${productId}"]`).dataset.price);
-                const productQuantity = parseInt(document.querySelector(`input[name="quantity[${productId}]"]`)
-                    .value);
-                total += productPrice * productQuantity;
+                const productItem = checkbox.closest('.product-item');
+                const price = parseFloat(productItem.dataset.price);
+                const quantity = parseInt(productItem.querySelector('.quantity-input').value);
+                totalPrice += price * quantity;
             }
         });
-        document.querySelector('.total-price-display').textContent = total.toLocaleString('vi-VN') + '₫';
+        // Hiển thị tổng tiền
+        totalPriceDisplay.textContent = totalPrice.toLocaleString('vi-VN') + '₫';
     }
 
-    // Gọi hàm cập nhật tổng tiền khi thay đổi checkbox
-    checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('change', updateTotal);
+    // Gắn sự kiện thay đổi cho checkbox
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateTotalPrice);
     });
 
-    // Cập nhật tổng tiền khi trang tải
-    window.onload = updateTotal;
+    // Gắn sự kiện thay đổi số lượng cũng cập nhật lại tổng tiền
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    quantityInputs.forEach(input => {
+        input.addEventListener('input', updateTotalPrice);
+    });
+
+    // Cập nhật tổng tiền khi trang tải lần đầu
+    window.onload = updateTotalPrice;
     </script>
+
 </body>
 
 </html>

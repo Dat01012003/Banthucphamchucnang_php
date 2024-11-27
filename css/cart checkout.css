@@ -1,0 +1,240 @@
+/* Tổng quan */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f4f5f7;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container chính */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.header h1 {
+    font-size: 28px;
+    color: #007bff;
+}
+
+.header nav a {
+    text-decoration: none;
+    color: #555;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.header nav a:hover {
+    color: #007bff;
+}
+
+/* Nội dung */
+.content {
+    display: flex;
+    gap: 20px;
+}
+
+/* Phần bên trái */
+.left-section, .right-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left-section {
+    flex: 3;
+}
+
+.right-section {
+    flex: 2;
+}
+
+/* Thông tin người dùng */
+.user-info {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.user-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.user-info div p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.user-info div a {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.user-info div a:hover {
+    text-decoration: underline;
+}
+
+/* Form */
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+form input, form select {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+form input:focus, form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.address-dropdowns {
+    display: flex;
+    gap: 10px;
+}
+
+/* Phương thức thanh toán */
+.payment-method label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.payment-method label input {
+    margin-right: 10px;
+}
+
+/* Phần bên phải */
+.right-section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.order-summary .item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.order-summary .item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.order-summary .item p {
+    flex: 1;
+    font-size: 14px;
+}
+
+.discount-section {
+    margin-top: 20px;
+}
+
+.discount-section input {
+    width: calc(70% - 10px);
+    padding: 12px 15px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.discount-section input:focus {
+    border-color: #007bff;
+}
+
+.discount-section button {
+    padding: 12px 20px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.discount-section button:hover {
+    background: #0056b3;
+}
+
+.discount-section .discount-codes button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.discount-section .discount-codes button:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* Tổng kết giá */
+.price-summary p, .price-summary h3 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.price-summary h3 {
+    color: red;
+    font-size: 18px;
+}
+
+.complete-order {
+    width: 100%;
+    padding: 15px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.complete-order:hover {
+    background: #218838;
+}

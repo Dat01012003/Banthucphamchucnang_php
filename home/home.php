@@ -54,28 +54,15 @@
                 <ul>
                     <li>
                         <a href="#" onclick="toggleSubmenu(event, 'homeSubmenu')">Trang chủ</a>
-                        <ul class="submenu" id="homeSubmenu">
-                            <li><a href="#">Giới thiệu</a></li>
-                            <li><a href="#">Liên hệ</a></li>
-                        </ul>
                     </li>
                     <li>
-                        <a href="#" onclick="toggleSubmenu(event, 'infoSubmenu')">Thông tin chung</a>
-                        <ul class="submenu" id="infoSubmenu">
-                            <li><a href="#">Thông báo</a></li>
-                            <li><a href="#">Lịch học</a></li>
-                        </ul>
-                    </li>
+                        <a href="../menu/vechungtoi.php">Về Chúng
+                            Tôi</a>
+
                     <li>
-                        <a href="#" onclick="toggleSubmenu(event, 'studySubmenu')">Học tập</a>
-                        <ul class="submenu" id="studySubmenu">
-                            <li><a href="#">Điểm danh</a></li>
-                            <li><a href="#">Kết quả học tập</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Đăng ký học phần</a></li>
-                    <li><a href="#">Học phí</a></li>
-                    <li><a href="#">Khác</a></li>
+                        <a href="../menu/Lienhe.php">Liên Hệ Với Chúng tôi</a>
+                </ul>
+                </li>
                 </ul>
             </div>
         </div>
